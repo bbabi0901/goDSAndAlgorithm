@@ -9,6 +9,9 @@ import (
 func main() {
 	arr := []int{26, 3, 52, 62, 33, 12, 7}
 
-	fmt.Println(algorithm.BubbleSort(arr))
-	fmt.Println(algorithm.SelectionSort(arr))
+	// fmt.Println(algorithm.BubbleSort(arr))
+	// fmt.Println(algorithm.SelectionSort(arr))
+	// fmt.Println(algorithm.InsertionSort(arr))
+	// fmt.Println(algorithm.QuickSort(arr))
+	fmt.Println(algorithm.MergeSort(arr))
 }
