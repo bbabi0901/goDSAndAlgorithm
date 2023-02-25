@@ -1,10 +1,13 @@
 package algorithm
 
-func swap(idx1, idx2 int, arr []int) {
+import "golang.org/x/exp/constraints"
+
+// constraints.Ordered는 대소 비교가 가능한 타입의 집합(int, float, string)
+func swap[T constraints.Ordered](idx1, idx2 int, arr []T) {
 	arr[idx1], arr[idx2] = arr[idx2], arr[idx1]
 }
 
-func BubbleSort(arr []int) []int {
+func BubbleSort[T constraints.Ordered](arr []T) []T {
 	len := len(arr)
 	for i := 0; i < len-1; i++ {
 		for j := 0; j < len-1-i; j++ {
@@ -16,7 +19,7 @@ func BubbleSort(arr []int) []int {
 	return arr
 }
 
-func SelectionSort(arr []int) []int {
+func SelectionSort[T constraints.Ordered](arr []T) []T {
 	for i := 0; i < len(arr); i++ {
 		minIndex := i
 		for j := i + 1; j < len(arr); j++ {
@@ -29,10 +32,10 @@ func SelectionSort(arr []int) []int {
 	return arr
 }
 
-func InsertionSort(arr []int) []int {
+func InsertionSort[T constraints.Ordered](arr []T) []T {
 	var j int = 0
 	for i := 1; i < len(arr); i++ {
-		var curr int = arr[i]
+		var curr T = arr[i]
 		for j = i - 1; j >= 0; j-- {
 			if curr < arr[j] {
 				arr[j+1] = arr[j]
@@ -45,14 +48,14 @@ func InsertionSort(arr []int) []int {
 	return arr
 }
 
-func QuickSort(arr []int) []int {
+func QuickSort[T constraints.Ordered](arr []T) []T {
 	// pivot 정해서 보다 작은 수, 큰 수로 분류. 분류를 반복
 	if len(arr) <= 1 {
 		return arr
 	}
 
-	var pivot int = arr[0]
-	var left, right []int
+	var pivot T = arr[0]
+	var left, right []T
 
 	for i := 1; i < len(arr); i++ {
 		if arr[i] < pivot {
@@ -62,15 +65,15 @@ func QuickSort(arr []int) []int {
 		}
 	}
 
-	var leftSorted []int = QuickSort(left)
-	var rightSorted []int = QuickSort(right)
+	var leftSorted []T = QuickSort(left)
+	var rightSorted []T = QuickSort(right)
 
 	return append(append(leftSorted, pivot), rightSorted...)
 }
 
-func merge(left, right []int) []int {
+func merge[T constraints.Ordered](left, right []T) []T {
 	var leftIdx, rightIdx int = 0, 0
-	var merged []int
+	var merged []T
 	totalSize := len(left) + len(right)
 
 	for i := 0; i < totalSize; i++ {
@@ -88,14 +91,14 @@ func merge(left, right []int) []int {
 	return merged
 }
 
-func MergeSort(arr []int) []int {
+func MergeSort[T constraints.Ordered](arr []T) []T {
 	if len(arr) <= 1 {
 		return arr
 	}
 
 	mid := len(arr) / 2
-	var left []int = MergeSort(arr[:mid])
-	var right []int = MergeSort(arr[mid:])
+	var left []T = MergeSort(arr[:mid])
+	var right []T = MergeSort(arr[mid:])
 	var merged = merge(left, right)
 	return merged
 }
