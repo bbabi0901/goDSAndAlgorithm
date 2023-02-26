@@ -2,19 +2,19 @@ package dataStructure
 
 import "fmt"
 
-type Node struct {
+type DllNode struct {
 	Data interface{}
-	Prev *Node
-	Next *Node
+	Prev *DllNode
+	Next *DllNode
 }
 
 type DoublyLinkedList struct {
 	NodeCount int
-	Head      *Node
-	Tail      *Node
+	Head      *DllNode
+	Tail      *DllNode
 }
 
-func (dll *DoublyLinkedList) InsertAfter(prevNode, newNode *Node) error {
+func (dll *DoublyLinkedList) InsertAfter(prevNode, newNode *DllNode) error {
 	next := prevNode.Next
 	newNode.Next = next
 	newNode.Prev = prevNode
@@ -24,7 +24,7 @@ func (dll *DoublyLinkedList) InsertAfter(prevNode, newNode *Node) error {
 	return nil
 }
 
-func (dll *DoublyLinkedList) InsertBefore(nextNode, newNode *Node) error {
+func (dll *DoublyLinkedList) InsertBefore(nextNode, newNode *DllNode) error {
 	prev := nextNode.Prev
 	newNode.Next = nextNode
 	newNode.Prev = prev
@@ -34,7 +34,7 @@ func (dll *DoublyLinkedList) InsertBefore(nextNode, newNode *Node) error {
 	return nil
 }
 
-func (dll *DoublyLinkedList) InsertAt(index int, newNode *Node) error {
+func (dll *DoublyLinkedList) InsertAt(index int, newNode *DllNode) error {
 	if index < 1 || index > dll.NodeCount+1 {
 		return fmt.Errorf("Check Index")
 	}
@@ -42,7 +42,7 @@ func (dll *DoublyLinkedList) InsertAt(index int, newNode *Node) error {
 	return dll.InsertAfter(prevNode, newNode)
 }
 
-func (dll *DoublyLinkedList) PopAfter(prevNode *Node) (*Node, error) {
+func (dll *DoublyLinkedList) PopAfter(prevNode *DllNode) (*DllNode, error) {
 	if prevNode == dll.Tail {
 		return nil, fmt.Errorf("Check Index")
 	}
@@ -53,7 +53,7 @@ func (dll *DoublyLinkedList) PopAfter(prevNode *Node) (*Node, error) {
 	return target, nil
 }
 
-func (dll *DoublyLinkedList) PopBefore(nextNode *Node) (*Node, error) {
+func (dll *DoublyLinkedList) PopBefore(nextNode *DllNode) (*DllNode, error) {
 	if nextNode == dll.Head {
 		return nil, fmt.Errorf("Check Index")
 	}
@@ -64,7 +64,7 @@ func (dll *DoublyLinkedList) PopBefore(nextNode *Node) (*Node, error) {
 	return target, nil
 }
 
-func (dll *DoublyLinkedList) PopAt(index int) (*Node, error) {
+func (dll *DoublyLinkedList) PopAt(index int) (*DllNode, error) {
 	if index < 1 || index > dll.NodeCount+1 {
 		return nil, fmt.Errorf("Check Index")
 	}
@@ -79,8 +79,8 @@ func (dll *DoublyLinkedList) Concat(followingDll *DoublyLinkedList) {
 	dll.NodeCount += followingDll.NodeCount
 }
 
-func Traverse(dll *DoublyLinkedList) []*Node {
-	var result []*Node
+func Traverse(dll *DoublyLinkedList) []*DllNode {
+	var result []*DllNode
 	curr := dll.Head.Next
 	for curr.Next != nil {
 		result = append(result, curr)
@@ -89,8 +89,8 @@ func Traverse(dll *DoublyLinkedList) []*Node {
 	return result
 }
 
-func Reverse(dll *DoublyLinkedList) []*Node {
-	var result []*Node
+func Reverse(dll *DoublyLinkedList) []*DllNode {
+	var result []*DllNode
 	curr := dll.Tail.Prev
 	for curr.Prev != nil {
 		result = append(result, curr)
@@ -99,11 +99,11 @@ func Reverse(dll *DoublyLinkedList) []*Node {
 	return result
 }
 
-func GetAt(dll *DoublyLinkedList, pos int) *Node {
+func GetAt(dll *DoublyLinkedList, pos int) *DllNode {
 	if pos < 0 || pos > dll.NodeCount {
 		return nil
 	}
-	var target *Node
+	var target *DllNode
 	i := 0
 	if pos < dll.NodeCount {
 		target = dll.Head
@@ -131,6 +131,6 @@ func InitDoublyLinkedList() *DoublyLinkedList {
 	return dll
 }
 
-func InitNode(data interface{}) *Node {
-	return &Node{Data: data}
+func InitNode(data interface{}) *DllNode {
+	return &DllNode{Data: data}
 }
