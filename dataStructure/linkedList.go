@@ -1,18 +1,19 @@
 package dataStructure
 
-/*
-type Node struct {
+import "fmt"
+
+type LlNode struct {
 	Data interface{}
-	Next *Node
+	Next *LlNode
 }
 
 type LinkedList struct {
 	NodeCount int
-	Head      *Node
-	Tail      *Node
+	Head      *LlNode
+	Tail      *LlNode
 }
 
-func GetAt(ll *LinkedList, pos int) *Node {
+func GetAtFromLl(ll *LinkedList, pos int) *LlNode {
 	if pos < 1 || pos > ll.NodeCount {
 		return nil
 	}
@@ -23,8 +24,8 @@ func GetAt(ll *LinkedList, pos int) *Node {
 	return curr
 }
 
-func Traverse(ll *LinkedList) []*Node {
-	var answer []*Node
+func Traverse(ll *LinkedList) []*LlNode {
+	var answer []*LlNode
 	curr := ll.Head
 	for curr != nil {
 		answer = append(answer, curr)
@@ -33,7 +34,7 @@ func Traverse(ll *LinkedList) []*Node {
 	return answer
 }
 
-func (ll *LinkedList) InsertAt(pos int, newNode *Node) error {
+func (ll *LinkedList) InsertAt(pos int, newNode *LlNode) error {
 	if pos < 1 || pos > ll.NodeCount+1 {
 		return fmt.Errorf("Check Index")
 	}
@@ -45,19 +46,19 @@ func (ll *LinkedList) InsertAt(pos int, newNode *Node) error {
 			newNode.Next = ll.Tail.Next
 			ll.Tail = newNode
 		} else {
-			newNode.Next = GetAt(ll, pos-1).Next
+			newNode.Next = GetAtFromLl(ll, pos-1).Next
 		}
-		GetAt(ll, pos-1).Next = newNode
+		GetAtFromLl(ll, pos-1).Next = newNode
 	}
 	ll.NodeCount += 1
 	return nil
 }
 
-func (ll *LinkedList) PopAt(pos int) *Node {
+func (ll *LinkedList) PopAt(pos int) *LlNode {
 	if pos < 1 || pos > ll.NodeCount {
 		return nil
 	}
-	n := GetAt(ll, pos)
+	n := GetAtFromLl(ll, pos)
 	if pos == 1 {
 		if ll.NodeCount == 1 {
 			ll.Head = nil
@@ -66,7 +67,7 @@ func (ll *LinkedList) PopAt(pos int) *Node {
 			ll.Head = ll.Head.Next
 		}
 	} else {
-		prev := GetAt(ll, pos-1)
+		prev := GetAtFromLl(ll, pos-1)
 		if pos == ll.NodeCount {
 			prev.Next = nil
 			ll.Tail = prev
@@ -81,11 +82,10 @@ func (ll *LinkedList) PopAt(pos int) *Node {
 // 변수 선언시 *를 붙이면 pointer형 변수로 메모리 주소를 값으로 가진다.
 // 이미 선언된 포인터 변수를 사용시 &를 붙이면 해당 변수의 메모리 주소.
 // 이미 선언된 포인터 변수를 사용시 *를 붙이면 주소에 할당된 값.
-func MakeNode(data interface{}) *Node {
-	return &Node{data, nil}
+func MakeNode(data interface{}) *LlNode {
+	return &LlNode{data, nil}
 }
 
 func MakeLinkedList() *LinkedList {
 	return &LinkedList{0, nil, nil}
 }
-*/

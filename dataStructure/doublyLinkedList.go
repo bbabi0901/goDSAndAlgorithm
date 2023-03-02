@@ -38,7 +38,7 @@ func (dll *DoublyLinkedList) InsertAt(index int, newNode *DllNode) error {
 	if index < 1 || index > dll.NodeCount+1 {
 		return fmt.Errorf("Check Index")
 	}
-	prevNode := GetAt(dll, index-1)
+	prevNode := GetAtFromDll(dll, index-1)
 	return dll.InsertAfter(prevNode, newNode)
 }
 
@@ -68,7 +68,7 @@ func (dll *DoublyLinkedList) PopAt(index int) (*DllNode, error) {
 	if index < 1 || index > dll.NodeCount+1 {
 		return nil, fmt.Errorf("Check Index")
 	}
-	prevNode := GetAt(dll, index-1)
+	prevNode := GetAtFromDll(dll, index-1)
 	return dll.PopAfter(prevNode)
 }
 
@@ -79,7 +79,7 @@ func (dll *DoublyLinkedList) Concat(followingDll *DoublyLinkedList) {
 	dll.NodeCount += followingDll.NodeCount
 }
 
-func Traverse(dll *DoublyLinkedList) []*DllNode {
+func TraverseDll(dll *DoublyLinkedList) []*DllNode {
 	var result []*DllNode
 	curr := dll.Head.Next
 	for curr.Next != nil {
@@ -99,7 +99,7 @@ func Reverse(dll *DoublyLinkedList) []*DllNode {
 	return result
 }
 
-func GetAt(dll *DoublyLinkedList, pos int) *DllNode {
+func GetAtFromDll(dll *DoublyLinkedList, pos int) *DllNode {
 	if pos < 0 || pos > dll.NodeCount {
 		return nil
 	}
@@ -121,9 +121,8 @@ func GetAt(dll *DoublyLinkedList, pos int) *DllNode {
 	return target
 }
 
-func InitDoublyLinkedList() *DoublyLinkedList {
-	var dll *DoublyLinkedList
-	dll = &DoublyLinkedList{NodeCount: 0, Head: InitNode(nil), Tail: InitNode(nil)}
+func MakeDoublyLinkedList() *DoublyLinkedList {
+	var dll *DoublyLinkedList = &DoublyLinkedList{NodeCount: 0, Head: MakeDllNode(nil), Tail: MakeDllNode(nil)}
 	dll.Head.Prev = nil
 	dll.Tail.Next = nil
 	dll.Head.Next = dll.Tail
@@ -131,6 +130,6 @@ func InitDoublyLinkedList() *DoublyLinkedList {
 	return dll
 }
 
-func InitNode(data interface{}) *DllNode {
+func MakeDllNode(data interface{}) *DllNode {
 	return &DllNode{Data: data}
 }
