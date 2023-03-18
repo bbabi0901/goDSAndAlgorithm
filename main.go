@@ -46,4 +46,5 @@ func main() {
 
 	arr := []int{26, 3, 52, 62, 33, 12, 7, 7, 1, 44, 29, 3, 3}
 	fmt.Println(algorithm.CountingSort(arr, 62))
+	fmt.Println(algorithm.CountingSort2(arr, 62))
 }

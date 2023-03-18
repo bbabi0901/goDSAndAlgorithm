@@ -116,10 +116,28 @@ func CountingSort(arr []int, max int) []int {
 	for i := 0; i < len(arr); i++ {
 		counting[arr[i]]++
 	}
-	for i := 0; i < max; i++ {
+	for i := 0; i < max+1; i++ {
 		for j := 0; j < counting[i]; j++ {
 			sorted = append(sorted, i)
 		}
+	}
+	return sorted
+}
+
+// 중복수가 많을 때 더 좋은 방법.
+func CountingSort2(arr []int, max int) []int {
+	sorted := make([]int, len(arr))
+	// 길이가 최대값+1인 배열.
+	counting := make([]int, max+1)
+	for i := 0; i < len(arr); i++ {
+		counting[arr[i]]++
+	}
+	for i := 1; i < max+1; i++ {
+		counting[i] += counting[i-1]
+	}
+	for i := 0; i < len(arr); i++ {
+		sorted[counting[arr[i]-1]] = arr[i]
+		counting[arr[i]]--
 	}
 	return sorted
 }
